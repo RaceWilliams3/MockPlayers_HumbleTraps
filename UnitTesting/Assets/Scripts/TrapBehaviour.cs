@@ -29,14 +29,20 @@ public class Trap
         {
             if (trapTargetType == TrapTargetType.Player)
             {
-                playerMover.Health--;
+                if (playerMover.Health > 0)
+                {
+                    playerMover.Health--;
+                }
             }
         } 
         else
         {
             if (trapTargetType == TrapTargetType.Npc)
             {
-                playerMover.Health--;
+                if (playerMover.Health > 0)
+                {
+                    playerMover.Health--;
+                }
             }
         }
     }

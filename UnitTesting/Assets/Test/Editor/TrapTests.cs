@@ -7,14 +7,24 @@ using NSubstitute;
 public class TrapTests
 {
     [Test]
-    public void PlayerEnteringTrap_PlayerTargetedTrap_ReducesHealthByOne()
+    public void PlayerEnteringTrap_PlayerTargetedTrap_HealthAt0()
     {
         Trap trap = new Trap();
         IPlayerMover playerMover = Substitute.For<IPlayerMover>();
         playerMover.IsPlayer.Returns(true);
         trap.HandleCharacterEntered(playerMover, TrapTargetType.Player);
 
-        Assert.AreEqual(-1, playerMover.Health);
+        Assert.AreEqual(0, playerMover.Health);
+    }
+
+    [Test]
+    public void NpcEnteringTrap_NpcTargetedTrap_HealthAt0()
+    {
+        Trap trap = new Trap();
+        IPlayerMover playerMover = Substitute.For<IPlayerMover>();
+        trap.HandleCharacterEntered(playerMover, TrapTargetType.Npc);
+
+        Assert.AreEqual(0, playerMover.Health);
     }
 
     [Test]
@@ -22,8 +32,21 @@ public class TrapTests
     {
         Trap trap = new Trap();
         IPlayerMover playerMover = Substitute.For<IPlayerMover>();
+        playerMover.Health = 1;
         trap.HandleCharacterEntered(playerMover, TrapTargetType.Npc);
 
-        Assert.AreEqual(-1, playerMover.Health);
+        Assert.AreEqual(0, playerMover.Health);
+    }
+
+    [Test]
+    public void PlayerEnteringTrap_PlayerTargetedTrap_ReducesHealthByOne()
+    {
+        Trap trap = new Trap();
+        IPlayerMover playerMover = Substitute.For<IPlayerMover>();
+        playerMover.IsPlayer.Returns(true);
+        playerMover.Health = 1;
+        trap.HandleCharacterEntered(playerMover, TrapTargetType.Player);
+
+        Assert.AreEqual(0, playerMover.Health);
     }
 }

@@ -9,6 +9,7 @@ public class PlayerMover : MonoBehaviour, IPlayerMover
     [SerializeField]
     private bool isPlayer;
     public bool IsPlayer => isPlayer;
+    public float playerSpeed;
 
     void Awake()
     {
@@ -20,6 +21,6 @@ public class PlayerMover : MonoBehaviour, IPlayerMover
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        characterController.Move(new Vector3(horizontal, 0, vertical));
+        characterController.Move(new Vector3(horizontal, 0, vertical) * playerSpeed);
     }
 }
